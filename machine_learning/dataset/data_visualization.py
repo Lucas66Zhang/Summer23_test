@@ -35,8 +35,7 @@ if __name__ == "__main__":
 
     objects_num = 15  # from 4-15
     label_or_input = 'label'  # or "label"
-    dataset = np.loadtxt('%s/num_%d.txt' % (label_or_input, objects_num))
-
+    dataset = np.loadtxt('./%s/num_%d.txt' % (label_or_input, objects_num))
     show_example_id = 0
     sample0 = dataset[show_example_id]
     bg = np.ones((480, 640, 3))
