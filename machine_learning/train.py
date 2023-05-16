@@ -4,7 +4,7 @@ from torch import nn
 from torch.utils.data import Dataset, DataLoader
 import os
 import numpy as np
-from model import MultiheadAttentionModel
+from model2 import MultiheadAttentionModel
 
 class RectanglesDataset(Dataset):
     def __init__(self, input_array, label_array):
@@ -34,7 +34,7 @@ def get_dataset():
         input_data = np.loadtxt(input_file)
         label_data = np.loadtxt(label_file)
 
-        input_data = input_data.reshape(-1, i, 5)[:,:,[0,1,4]]
+        input_data = input_data.reshape(-1, i, 5)
         label_data = label_data.reshape(-1, i, 5)[:,:,[0,1,4]]
 
         input_data = np.pad(input_data, ((0, 0), (0, 15 - i), (0, 0)), mode='constant')
@@ -152,7 +152,7 @@ if __name__ == "__main__":
     val_dataloader = DataLoader(val_dataset, batch_size=1)
     # test_dataloader = DataLoader(test_dataset, batch_size=1)
 
-    model = MultiheadAttentionModel(3, num_heads=3, num_layers=2)
+    model = MultiheadAttentionModel(input_dim=5, output_dim=3, num_heads=5, num_layers=2)
 
     device = torch.device("mps" if torch.cuda.is_available() else "cpu")
     model = model.to(device)
@@ -173,6 +173,6 @@ if __name__ == "__main__":
         val_loss = validate(model, val_dataloader, criterion, device)
         print(f"Epoch {epoch + 1}/{num_epochs}: Train Loss: {train_loss} | Validation Loss: {val_loss}")
 
-    model_version = "1_2"
+    model_version = "2_0"
     torch.save(model, f"machine_learning/model/{model_version}.pth")
     

@@ -5,7 +5,7 @@ from torch import nn
 from torch.utils.data import DataLoader
 
 if __name__ == "__main__":
-    model_version = "1_2"
+    model_version = "2_0"
 
     _, test_dataset, _ = get_dataset()
     test_dataloader = DataLoader(test_dataset, batch_size=1)
